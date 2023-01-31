@@ -62,6 +62,19 @@ namespace mustafarbackend.Migrations
                         .IsUnique();
 
                     b.ToTable("users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("590382bb-4085-404b-9305-3f50eda6f7bb"),
+                            Cel = "64992959483",
+                            CreateAt = new DateTime(2023, 1, 31, 19, 34, 20, 347, DateTimeKind.Local).AddTicks(1410),
+                            Email = "adm@gmail.com",
+                            Name = "Administrador",
+                            Password = "AJVubWbqOapXMlj8lr1H0wTjdrtpI6zDaXFTZkoVwWBSiscNjdMvzz1nyVK3WP+RWQ==",
+                            Permission = "admin",
+                            UpdateAt = new DateTime(2023, 1, 31, 19, 34, 20, 347, DateTimeKind.Local).AddTicks(1424)
+                        });
                 });
 #pragma warning restore 612, 618
         }

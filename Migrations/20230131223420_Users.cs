@@ -38,6 +38,11 @@ namespace mustafarbackend.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "Id", "Cel", "CreateAt", "Email", "Name", "Password", "Permission", "UpdateAt" },
+                values: new object[] { new Guid("590382bb-4085-404b-9305-3f50eda6f7bb"), "64992959483", new DateTime(2023, 1, 31, 19, 34, 20, 347, DateTimeKind.Local).AddTicks(1410), "adm@gmail.com", "Administrador", "AJVubWbqOapXMlj8lr1H0wTjdrtpI6zDaXFTZkoVwWBSiscNjdMvzz1nyVK3WP+RWQ==", "admin", new DateTime(2023, 1, 31, 19, 34, 20, 347, DateTimeKind.Local).AddTicks(1424) });
+
             migrationBuilder.CreateIndex(
                 name: "IX_users_Email",
                 table: "users",
