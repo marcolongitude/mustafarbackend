@@ -11,6 +11,14 @@ public static class UsersEndPoints
         })
         .RequireRateLimiting(UsersModules.policyNameRateLimiting);
 
+        routes.MapGet("/teste", () =>
+        {
+            return new
+            {
+                horaAtual = DateTime.UtcNow
+            };
+        });
+
         routes.MapPost("/users", () =>
         {
 
