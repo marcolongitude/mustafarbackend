@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
+using mustafarbackend.config;
 
 public class UsersModules : IModule
 {
@@ -64,16 +65,3 @@ public class UsersModules : IModule
         + $" {context.Connection.RemoteIpAddress}";
 }
 
-static public class MyRateLimitOptions
-{
-    static public readonly string MyRateLimit = "MyRateLimit";
-    static public int PermitLimit { get; set; } = 5;
-    static public int Window { get; set; } = 10;
-    static public int ReplenishmentPeriod { get; set; } = 2;
-    static public int QueueLimit { get; set; } = 1;
-    static public int SegmentsPerWindow { get; set; } = 10;
-    static public int TokenLimit { get; set; } = 10;
-    static public int TokenLimit2 { get; set; } = 20;
-    static public int TokensPerPeriod { get; set; } = 4;
-    static public bool AutoReplenishment { get; set; } = false;
-}
