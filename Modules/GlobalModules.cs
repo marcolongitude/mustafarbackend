@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using mustafarbackend.Context;
+using Mustafarbackend.Modules.Users.Services;
 
 public class GlobalModule: IModule
 {
