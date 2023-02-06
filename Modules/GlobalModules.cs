@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using mustafarbackend.Context;
 
 public class GlobalModule: IModule
 {
+    private readonly IConfiguration? _config;
+
     public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
     {
         return endpoints;
@@ -9,6 +13,14 @@ public class GlobalModule: IModule
 
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
+        if(_config is not null){
+            var connectstring = _config["ConnectionString:mysql"];
+
+            services.AddDbContext<MyContext>(
+                options => options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring))
+            );
+        }
+
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
             {
