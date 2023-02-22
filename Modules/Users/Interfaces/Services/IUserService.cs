@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mustafarbackend.Modules.Users.Dtos;
 
-namespace Mustafarbackend.Modules.Users.Interfaces.Services.User
+namespace Mustafarbackend.Modules.Users.Interfaces.Services
 {
     public interface IUserService
     {

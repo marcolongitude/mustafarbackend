@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 using mustafarbackend.config;
-using Mustafarbackend.Modules.Users.Interfaces.Services.User;
+using Mustafarbackend.Modules.Users.Interfaces.Services;
 using Mustafarbackend.Modules.Users.Services;
 
 public class UsersModules : IModule

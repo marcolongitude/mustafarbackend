@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using mustafarbackend.Modules.Users.Entities;
 using Mustafarbackend.Modules.Users.Dtos;
-using Mustafarbackend.Modules.Users.Interfaces.Services.User;
 using Mustafarbackend.Repository;
 using AutoMapper;
 using Mustafarbackend.Modules.Users.Models;
 using Mustafarbackend.Utils.Functions;
+using Mustafarbackend.Modules.Users.Interfaces.Services;
 
 namespace Mustafarbackend.Modules.Users.Services
 {
     public class UserService : IUserService
     {
-        private IRepository<UserEntity> _repository;
+        private readonly IRepository<UserEntity> _repository;
         private readonly IMapper _mapper;
 
         public UserService(IRepository<UserEntity> repository, IMapper mapper)
@@ -37,7 +37,7 @@ namespace Mustafarbackend.Modules.Users.Services
         public async Task<UserDto> Get(Guid id)
         {
             UserEntity entity = await _repository.SelectAsync(id);
-            return entity is not null ? _mapper.Map<UserDto>(entity) : null;
+            return _mapper.Map<UserDto>(entity);
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()

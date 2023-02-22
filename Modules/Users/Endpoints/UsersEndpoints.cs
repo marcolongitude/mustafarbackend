@@ -1,12 +1,16 @@
+using Api.Application.Controllers;
+
 public static class UsersEndPoints
 {
     public static IEndpointRouteBuilder MapUsersEndpoints(this IEndpointRouteBuilder routes)
     {
-        routes.MapGet("/users", () =>
+        var controller = new UserController();
+        routes.MapGet("/users", async () =>
         {
+            var result = await controller.GetAll();
             return new
             {
-                horaAtual = DateTime.UtcNow
+                result
             };
         })
         .RequireRateLimiting(UsersModules.policyNameRateLimiting);
