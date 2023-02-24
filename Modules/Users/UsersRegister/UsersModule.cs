@@ -9,10 +9,11 @@ public class UsersModules : IModule
 {
     static public readonly string policyNameRateLimiting = "nameRateLimiting";
 
-    public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
-    {
-        return UsersEndPoints.MapUsersEndpoints(endpoints);
-    }
+
+    // public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
+    // {
+    //     return UsersEndPoints.MapUsersEndpoints(endpoints);
+    // }
 
     public IServiceCollection RegisterModule(IServiceCollection services)
     {

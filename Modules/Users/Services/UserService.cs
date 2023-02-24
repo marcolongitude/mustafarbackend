@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using mustafarbackend.Modules.Users.Entities;
 using Mustafarbackend.Modules.Users.Dtos;
 using Mustafarbackend.Repository;

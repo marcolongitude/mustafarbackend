@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using mustafarbackend.Context;
+using mustafarbackend.Mappings;
 using Mustafarbackend.Modules.Users.Services;
+using Mustafarbackend.Repository;
 
 public class GlobalModule: IModule
 {
@@ -14,13 +17,25 @@ public class GlobalModule: IModule
 
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
-        if(_config is not null){
-            var connectstring = _config["ConnectionString:mysql"];
+
+        var configMapper = new AutoMapper.MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile(new DtoToModelProfile());
+            cfg.AddProfile(new EntityToDtoProfile());
+            cfg.AddProfile(new ModelToEntityProfile());
+        });
+
+        IMapper mapper = configMapper.CreateMapper();
+        services.AddSingleton(mapper);
+
+        services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+        
+            // var connectstring = _config["ConnectionString:mysql"];
+            var connectstring = "Server=localhost;Database=sfe_contatos6;Uid=root;Pwd=Adminmagti*1981";
 
             services.AddDbContext<MyContext>(
                 options => options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring))
             );
-        }
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>

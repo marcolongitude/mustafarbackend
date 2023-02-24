@@ -1,8 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using mustafarbackend.Context;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterModules();
+builder.Services.AddControllers();
             
 var app = builder.Build();
 
@@ -16,5 +14,9 @@ app.UseSwaggerUI(options =>
 app.MapGet("/", () => "Hello World!");
 app.UseRateLimiter();
 app.UseAuthorization();
-app.MapEndPoints();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();

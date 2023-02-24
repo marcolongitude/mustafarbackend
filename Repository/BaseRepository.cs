@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using mustafarbackend.Entity;
 using mustafarbackend.Context;
@@ -16,6 +13,7 @@ namespace Mustafarbackend.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
+
         public async Task<bool> DeleteAsync(Guid id)
         {
             try
@@ -73,7 +71,8 @@ namespace Mustafarbackend.Repository
         {
             try
             {
-                return await _dataset.ToArrayAsync();
+                var teste = await _dataset.AsQueryable().ToArrayAsync();
+                return teste;
             }
             catch (Exception ex)
             {

@@ -1,7 +1,7 @@
 public interface IModule
 {
     IServiceCollection RegisterModule(IServiceCollection builder);
-    IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints);
+    // IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints);
 }
 
 public static class ModuleExtensions
@@ -20,14 +20,14 @@ public static class ModuleExtensions
         return services;
     }
 
-    public static WebApplication MapEndPoints(this WebApplication app)
-    {
-        foreach (var module in registeredModules)
-        {
-            module.MapEndPoints(app);
-        }
-        return app;
-    }
+    // public static WebApplication MapEndPoints(this WebApplication app)
+    // {
+    //     foreach (var module in registeredModules)
+    //     {
+    //         module.MapEndPoints(app);
+    //     }
+    //     return app;
+    // }
 
     private static IEnumerable<IModule> DiscoverModules()
     {
