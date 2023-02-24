@@ -8,7 +8,7 @@ using Mustafarbackend.Repository;
 
 public class GlobalModule: IModule
 {
-    private readonly IConfiguration? _config;
+    // private readonly IConfiguration? _config;
 
     public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
     {

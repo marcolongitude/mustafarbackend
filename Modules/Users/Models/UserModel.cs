@@ -11,38 +11,38 @@ namespace Mustafarbackend.Modules.Users.Models
             set { _id = value; }
         }
 
-        private string _name;
+        private string ?_name;
         public string Name
         {
-            get { return _name; }
+            get { return _name!; }
             set { _name = value; }
         }
 
-        private string _email;
+        private string ?_email;
         public string Email
         {
-            get { return _email; }
+            get { return _email!; }
             set { _email = value; }
         }
 
-        private string _password;
+        private string ?_password;
         public string Password
         {
-            get { return _password; }
+            get { return _password!; }
             set { _password = value; }
         }
 
-        private string cel;
+        private string ?cel;
         public string Cel
         {
-            get { return cel; }
+            get { return cel!; }
             set { cel = value; }
         }
 
-        private string permission;
+        private string ?permission;
         public string Permission
         {
-            get { return permission; }
+            get { return permission!; }
             set { permission = value; }
         }
 
@@ -51,7 +51,7 @@ namespace Mustafarbackend.Modules.Users.Models
         public DateTime CreateAt
         {
             get { return _createAt; }
-            set { _createAt = value == null ? DateTime.UtcNow : value; }
+            set { _createAt = DateTime.UtcNow; }
         }
 
         private DateTime _updateAt;
