@@ -22,10 +22,29 @@ namespace Api.Application.Controllers
 
             try
             {
-                var teste = await _service.GetAll();
-                return Ok(teste);
+                return Ok(await _service.GetAll());
             }
             catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}", Name = "GetWithId")]
+        public async Task<ActionResult> Get(Guid id)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                var response = await _service.Get(id);
+                if(response is null){
+                    return NotFound();
+                }
+                return Ok(await _service.Get(id));
+            }
+            catch(ArgumentException e)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }

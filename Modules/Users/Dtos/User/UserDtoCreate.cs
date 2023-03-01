@@ -17,7 +17,7 @@ namespace Mustafarbackend.Modules.Users.Dtos
         public string ?Cel { get; set; }
 
         [Required(ErrorMessage = "Password é um campo obrigatório!")]
-        public string ?Password { get; set; }
+        public string Password { get; set; } = "";
 
         [Required(ErrorMessage = "Permissão é um campo obrigatório")]
         public string ?Permission { get; set; }

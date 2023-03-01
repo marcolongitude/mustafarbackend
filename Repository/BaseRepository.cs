@@ -59,7 +59,8 @@ namespace Mustafarbackend.Repository
         {
             try
             {
-                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                var teste = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                return teste;
             }
             catch (Exception ex)
             {
@@ -71,8 +72,7 @@ namespace Mustafarbackend.Repository
         {
             try
             {
-                var teste = await _dataset.AsQueryable().ToArrayAsync();
-                return teste;
+                return await _dataset.AsQueryable().ToArrayAsync();
             }
             catch (Exception ex)
             {
@@ -85,7 +85,6 @@ namespace Mustafarbackend.Repository
             try
             {
                 var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
-                if (result == null) return null;
 
                 item.UpdateAt = DateTime.UtcNow;
                 item.CreateAt = result.CreateAt;
