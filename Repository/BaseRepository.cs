@@ -59,8 +59,7 @@ namespace Mustafarbackend.Repository
         {
             try
             {
-                var teste = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
-                return teste;
+                return await _dataset.SingleOrDefaultAsync<T>(p => p.Id.Equals(id));
             }
             catch (Exception ex)
             {
