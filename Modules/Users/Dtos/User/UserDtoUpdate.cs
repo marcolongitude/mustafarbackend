@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mustafarbackend.Modules.Users.Dtos
 {
-    public class UserDtoUpdate
+    public struct UserDtoUpdate
     {
         [Required(ErrorMessage = "O campo Id é obrigatório")]
         public Guid Id { get; set; }

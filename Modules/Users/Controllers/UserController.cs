@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Mustafarbackend.Modules.Users.Dtos;
 using Mustafarbackend.Modules.Users.Interfaces.Services;
 
@@ -40,7 +41,7 @@ namespace Api.Application.Controllers
             try
             {
                 var response = await _service.Get(id);
-                if(response is null){
+                if(response.Name is null){
                     return NotFound();
                 }
                 return Ok(await _service.Get(id));
@@ -58,15 +59,11 @@ namespace Api.Application.Controllers
 
             try
             {
-                var result = await _service.Post(user);
-                if (result is not null)
-                {
-                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                UserDtoCreateResult result = await _service.Post(user);
+
+                if ( result.Id is null) return NotFound();
+                // var url = new Uri(Url.Link("GetWithId", new {id = result.Id}));
+                return CreatedAtAction(nameof(_service.Post), result);
             }
             catch (ArgumentException e)
             {

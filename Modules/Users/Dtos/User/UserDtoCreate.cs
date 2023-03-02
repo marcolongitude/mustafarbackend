@@ -2,8 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mustafarbackend.Modules.Users.Dtos
 {
-    public class UserDtoCreate
+    public struct UserDtoCreate
     {
+        public UserDtoCreate()
+        {
+        }
+
         [Required(ErrorMessage = "O campo nome é obrigatório")]
         [StringLength(100, ErrorMessage = "O nome deve ter no máximo {1} caracteres")]
         public string ?Name { get; set; }

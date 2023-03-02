@@ -2,8 +2,15 @@ using System;
 
 namespace Mustafarbackend.Modules.Users.Dtos
 {
-    public class UserDto
+    public struct UserDto
     {
+        // public UserDto(Guid id, string name, string email, string cel, string permission)
+        // {
+        //     Id = id;
+        //     Email = email;
+        //     Cel = cel;
+        //     Permission = permission;
+        // }
         public Guid Id { get; set; }
         public string ?Name { get; set; }
         public string ?Email { get; set; }
