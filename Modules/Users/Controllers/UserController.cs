@@ -41,7 +41,7 @@ namespace Api.Application.Controllers
             try
             {
                 var response = await _service.Get(id);
-                if(response.Name is null){
+                if(response is null){
                     return NotFound();
                 }
                 return Ok(await _service.Get(id));
@@ -61,7 +61,7 @@ namespace Api.Application.Controllers
             {
                 UserDtoCreateResult result = await _service.Post(user);
 
-                if ( result.Id is null) return NotFound();
+                if ( result is null) return NotFound();
                 // var url = new Uri(Url.Link("GetWithId", new {id = result.Id}));
                 return CreatedAtAction(nameof(_service.Post), result);
             }

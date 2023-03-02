@@ -35,67 +35,39 @@ namespace Mustafarbackend.Repository
 
         public async Task<T> InsertAsync(T item)
         {
-            try
+            if (item.Id == Guid.Empty)
             {
-                if (item.Id == Guid.Empty)
-                {
-                    item.Id = Guid.NewGuid();
-                }
-                item.CreateAt = DateTime.UtcNow;
-
-                _dataset.Add(item);
-
-                await _context.SaveChangesAsync();
+                item.Id = Guid.NewGuid();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            item.CreateAt = DateTime.UtcNow;
+
+            _dataset.Add(item);
+
+            await _context.SaveChangesAsync();
 
             return item;
         }
 
         public async Task<T> SelectAsync(Guid id)
         {
-            try
-            {
-                var result = await _dataset.SingleOrDefaultAsync<T>(p => p.Id.Equals(id));
-                return result!;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var result = await _dataset.SingleOrDefaultAsync<T>(p => p.Id.Equals(id));
+            return result!;
         }
 
         public async Task<IEnumerable<T>> SelectAsync()
         {
-            try
-            {
-                return await _dataset.AsQueryable().ToArrayAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return await _dataset.AsQueryable().ToArrayAsync();
         }
 
         public async Task<T> UpdateAsync(T item)
         {
-            try
-            {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+            var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
 
-                item.UpdateAt = DateTime.UtcNow;
-                item.CreateAt = result.CreateAt;
+            item.UpdateAt = DateTime.UtcNow;
+            item.CreateAt = result.CreateAt;
 
-                _context.Entry(result).CurrentValues.SetValues(item);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            _context.Entry(result).CurrentValues.SetValues(item);
+            await _context.SaveChangesAsync();
 
             return item;
         }
