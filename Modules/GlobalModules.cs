@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using mustafarbackend.Context;
 using mustafarbackend.Mappings;
+using mustafarbackend.Middlewares.ErrorHandling;
 using Mustafarbackend.Modules.Users.Services;
 using Mustafarbackend.Repository;
 
-public class GlobalModule: IModule
+public class GlobalModule : IModule
 {
     // private readonly IConfiguration? _config;
 
@@ -27,15 +28,16 @@ public class GlobalModule: IModule
 
         IMapper mapper = configMapper.CreateMapper();
         services.AddSingleton(mapper);
+        services.AddTransient<ExceptionMiddleware>();
 
         services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-        
-            // var connectstring = _config["ConnectionString:mysql"];
-            var connectstring = "Server=localhost;Database=sfe_contatos6;Uid=root;Pwd=Adminmagti*1981";
 
-            services.AddDbContext<MyContext>(
-                options => options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring))
-            );
+        // var connectstring = _config["ConnectionString:mysql"];
+        var connectstring = "Server=localhost;Database=sfe_contatos6;Uid=root;Pwd=Adminmagti*1981";
+
+        services.AddDbContext<MyContext>(
+            options => options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring))
+        );
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>

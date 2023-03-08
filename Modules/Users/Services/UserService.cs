@@ -53,14 +53,11 @@ namespace Mustafarbackend.Modules.Users.Services
             return _mapper.Map<UserDtoCreateResult>(result);
         }
 
-        public async Task<UserDtoUpdateResult> Put(UserDtoUpdate user)
+        public async Task<UserDtoUpdateResult?> Put(UserDtoUpdate user)
         {
             var userExists = await _repository.SelectAsync(user.Id);
 
-            if (userExists == null)
-            {
-                throw new ArgumentNullException("user not exists");
-            }
+            if (userExists == null) return null;
 
             UserModel model = _mapper.Map<UserModel>(user);
             UserEntity entity = _mapper.Map<UserEntity>(model);

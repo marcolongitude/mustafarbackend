@@ -2,7 +2,7 @@ using System;
 
 namespace Mustafarbackend.Modules.Users.Models
 {
-    public class UserModel
+    public struct UserModel
     {
         private Guid _id;
         public Guid Id

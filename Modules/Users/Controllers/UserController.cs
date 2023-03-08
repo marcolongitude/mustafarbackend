@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using mustafarbackend.Middlewares.ErrorHandling;
 using Mustafarbackend.Modules.Users.Dtos;
 using Mustafarbackend.Modules.Users.Interfaces.Services;
 
@@ -22,34 +23,23 @@ namespace Api.Application.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            try
-            {
-                return Ok(await _service.GetAll());
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
+            return Ok(await _service.GetAll());
         }
 
         [HttpGet]
         [Route("{id}", Name = "GetWithId")]
         public async Task<ActionResult> Get(Guid id)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            try
+            var response = await _service.Get(id);
+
+            if (response is null)
             {
-                var response = await _service.Get(id);
-                if(response is null){
-                    return NotFound();
-                }
-                return Ok(await _service.Get(id));
+                throw new NotFoundException($"A user from the database with id: {id} could not be found.");
             }
-            catch(ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
+
+            return Ok(await _service.Get(id));
         }
 
         [HttpPost]
@@ -57,33 +47,17 @@ namespace Api.Application.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            try
-            {
-                UserDtoCreateResult result = await _service.Post(user);
+            UserDtoCreateResult result = await _service.Post(user);
 
-                if ( result is null) return NotFound();
-                // var url = new Uri(Url.Link("GetWithId", new {id = result.Id}));
-                return CreatedAtAction(nameof(_service.Post), result);
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
+            // var url = new Uri(Url.Link("GetWithId", new {id = result.Id}));
+            return CreatedAtAction(nameof(_service.Post), result);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            try
-            {
-                return Ok(await _service.Delete(id));
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
+            return Ok(await _service.Delete(id));
         }
 
         [HttpPut]
@@ -91,23 +65,13 @@ namespace Api.Application.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            try
+            var result = await _service.Put(user);
+            if (result is null)
             {
-                var result = await _service.Put(user);
-                if (result is not null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                throw new NotFoundException($"A user from the database with id: {user.Id} could not be found.");
             }
-            catch (ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
-        }
 
+            return Ok(result);
+        }
     }
 }
