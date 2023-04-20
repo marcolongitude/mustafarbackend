@@ -5,6 +5,7 @@ using AutoMapper;
 using Mustafarbackend.Modules.Users.Models;
 using Mustafarbackend.Utils.Functions;
 using Mustafarbackend.Modules.Users.Interfaces.Services;
+using BC = BCrypt.Net.BCrypt;
 
 namespace Mustafarbackend.Modules.Users.Services
 {
@@ -47,7 +48,8 @@ namespace Mustafarbackend.Modules.Users.Services
         {
             UserModel model = _mapper.Map<UserModel>(user);
             UserEntity entity = _mapper.Map<UserEntity>(model);
-            entity.Password = PasswordHashed.HashPassword(user.Password);
+            // entity.Password = PasswordHashed.HashPassword(user.Password);
+            entity.Password = BC.HashPassword(user.Password);
             UserEntity result = await _repository.InsertAsync(entity);
 
             return _mapper.Map<UserDtoCreateResult>(result);

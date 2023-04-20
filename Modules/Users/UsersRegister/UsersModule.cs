@@ -1,4 +1,3 @@
-using System.Net;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 using mustafarbackend.config;
@@ -9,16 +8,10 @@ public class UsersModules : IModule
 {
     static public readonly string policyNameRateLimiting = "nameRateLimiting";
 
-
-    // public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
-    // {
-    //     return UsersEndPoints.MapUsersEndpoints(endpoints);
-    // }
-
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
         // services.AddSingleton(new OrderConfig());
-        services.AddTransient<IUserService, UserService>();
+        services.AddScoped<IUserService, UserService>();
         //app.Logger.LogWarning("Rate limit exceeded, retry after {RetryAfter} seconds", retryAfter.TotalSeconds);
 
         services.AddRateLimiter(limiterOptions =>
