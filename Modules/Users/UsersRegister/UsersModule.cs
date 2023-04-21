@@ -1,6 +1,8 @@
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 using mustafarbackend.config;
+using mustafarbackend.Modules.Auth.Implementations;
+using mustafarbackend.Repository;
 using Mustafarbackend.Modules.Users.Interfaces.Services;
 using Mustafarbackend.Modules.Users.Services;
 
@@ -12,6 +14,7 @@ public class UsersModules : IModule
     {
         // services.AddSingleton(new OrderConfig());
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserRepository, UserImplementation>();
         //app.Logger.LogWarning("Rate limit exceeded, retry after {RetryAfter} seconds", retryAfter.TotalSeconds);
 
         services.AddRateLimiter(limiterOptions =>

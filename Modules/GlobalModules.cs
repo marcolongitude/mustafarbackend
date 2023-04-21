@@ -11,11 +11,6 @@ public class GlobalModule : IModule
 {
     // private readonly IConfiguration? _config;
 
-    public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
-    {
-        return endpoints;
-    }
-
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
 

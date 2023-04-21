@@ -1,24 +1,22 @@
-using System.Net;
-using System.Threading.RateLimiting;
+
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.RateLimiting;
-using mustafarbackend.config;
+using mustafarbackend.Modules.Auth.Interfaces.Services;
+using Mustafarbackend.Modules.Users.Interfaces.Services;
+using Mustafarbackend.Modules.Users.Services;
 using Security;
+using Services;
 
 public class AuthModule : IModule
 {
     static public readonly string policyNameRateLimiting = "nameRateLimiting";
 
-    public IEndpointRouteBuilder MapEndPoints(IEndpointRouteBuilder endpoints)
-    {
-        return AuthEndPoints.MapAuthEndpoints(endpoints);
-    }
-
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
         // services.AddSingleton(new OrderConfig());
         // services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IAuthenticateService, LoginService>();
         //app.Logger.LogWarning("Rate limit exceeded, retry after {RetryAfter} seconds", retryAfter.TotalSeconds);
 
         var signingConfigurations = new SigningConfigurations();
@@ -39,12 +37,12 @@ public class AuthModule : IModule
                 paramsValidation.ClockSkew = TimeSpan.Zero;
             });
 
-            services.AddAuthorization(auth =>
-            {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
-            });
+        services.AddAuthorization(auth =>
+        {
+            auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser().Build());
+        });
 
         return services;
     }

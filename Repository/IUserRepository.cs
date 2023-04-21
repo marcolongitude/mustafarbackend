@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using mustafarbackend.Modules.Users.Entities;
 using Mustafarbackend.Repository;
 
-namespace mustafarbackend.Modules.Auth.Interfaces
+namespace mustafarbackend.Repository
 {
-    public interface ILoginRepository
+    public interface IUserRepository : IRepository<UserEntity>
     {
-        Task<UserEntity> Login(string email);
+        Task<UserEntity> FindByLogin(string email);
     }
 }

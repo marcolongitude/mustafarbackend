@@ -5,6 +5,8 @@ using mustafarbackend.Modules.Auth.Interfaces.Services;
 
 namespace mustafarbackend.Modules.Auth.Controllers
 {
+    [Route("api/v1/[controller]")]
+    [ApiController]
     public class AuthenticateController : ControllerBase
     {
 
