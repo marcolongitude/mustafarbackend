@@ -1,10 +1,6 @@
-
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using mustafarbackend.Modules.Auth.Interfaces.Services;
-using Mustafarbackend.Modules.Users.Interfaces.Services;
-using Mustafarbackend.Modules.Users.Services;
 using Security;
 using Services;
 
@@ -14,10 +10,7 @@ public class AuthModule : IModule
 
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
-        // services.AddSingleton(new OrderConfig());
-        // services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IAuthenticateService, LoginService>();
-        //app.Logger.LogWarning("Rate limit exceeded, retry after {RetryAfter} seconds", retryAfter.TotalSeconds);
 
         var signingConfigurations = new SigningConfigurations();
         services.AddSingleton(signingConfigurations);

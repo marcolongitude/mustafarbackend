@@ -1,6 +1,4 @@
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using mustafarbackend.Middlewares.ErrorHandling;
 using Mustafarbackend.Modules.Users.Dtos;
 using Mustafarbackend.Modules.Users.Interfaces.Services;

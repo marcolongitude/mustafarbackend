@@ -7,7 +7,9 @@ using mustafarbackend.Modules.Auth.Interfaces.Services;
 using mustafarbackend.Modules.Users.Entities;
 using mustafarbackend.Repository;
 using Security;
-using BC = BCrypt.Net.BCrypt;
+// using BC = BCrypt.Net.BCrypt;
+using Mustafarbackend.Utils.Functions;
+
 
 namespace Services
 {
@@ -51,7 +53,7 @@ namespace Services
                     message = "Usuário não encontrado"
                 };
             }
-            bool passwordVerified = BC.Verify(baseUser.Password, user.Password);
+            bool passwordVerified = PasswordHashed.VerifyHashedPassword(baseUser.Password, user.Password);
             if (!passwordVerified)
             {
                 return new
@@ -72,7 +74,8 @@ namespace Services
             );
 
             DateTime createDate = DateTime.Now;
-            var envDays = Environment.GetEnvironmentVariable("DAYS");
+            // var envDays = Environment.GetEnvironmentVariable("DAYS");
+            var envDays = 1;
             var expirationDateConvert = Convert.ToInt32(envDays);
             DateTime expirationDate = createDate + TimeSpan.FromDays(expirationDateConvert);
             var handler = new JwtSecurityTokenHandler();
